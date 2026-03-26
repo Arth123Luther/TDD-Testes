@@ -5,6 +5,15 @@
 // ------------------------------------------------------------
 // Validação
 // ------------------------------------------------------------
+let _nextId = 1;
+
+/**
+ * Reseta o contador de IDs (útil para testes determinísticos).
+ */
+export function resetId() {
+  _nextId = 1;
+}
+
 
 export function validateTitle(title) {
   if (typeof title !== 'string') {
@@ -13,4 +22,16 @@ export function validateTitle(title) {
 
   const trimmed = title.trim();
   return trimmed.length >= 3;
+}
+
+// ------------------------------------------------------------
+// Criação
+// ------------------------------------------------------------
+
+export function createTask(title) {
+  return {
+    id: _nextId++,
+    title: title.trim(),
+    completed: false,
+  };
 }
