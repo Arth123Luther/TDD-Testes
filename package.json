@@ -1,0 +1,27 @@
+{
+  "name": "tdd-testes",
+  "version": "1.0.0",
+  "description": "Este é um repositório para a matéria Manutenção de Software, do curso de Análise e Desenvolvimento de sistemas.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arth123Luther/TDD-Testes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arth123Luther/TDD-Testes/issues"
+  },
+  "homepage": "https://github.com/Arth123Luther/TDD-Testes#readme",
+  "devDependencies": {
+    "@vitest/ui": "^4.1.2",
+    "vitest": "^4.1.2"
+  }
+}
