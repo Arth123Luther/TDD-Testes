@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { removerTarefa } from '../src/tarefario.js';
+import removerTarefa from '../src/tarefario.js'
 
 describe("Exercício 1: Remoção", () => {
     const tarefas = [
