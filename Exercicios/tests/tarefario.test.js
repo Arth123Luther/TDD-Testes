@@ -53,3 +53,62 @@ describe("Exercício 1: Remoção", () => {
         expect(checkVazio.length).toBe(0);
     });
 })
+
+describe("Exercício 2: Filtro", () => {
+    const tarefas = [
+        { id: 1, title: 'Estudar TDD', status: 'completed' },
+        { id: 2, title: 'Commitar Códigos', status: 'pending' },
+        { id: 3, title: 'Entregar Projeto', status: 'pending' },
+    ];
+
+    it('A) Filtro "all" retorna todas as tarefas', () => {
+        const listaCheia = filtrarTarefas(tarefas, 'all');
+
+        // Checa se lista filtrada tem o mesmo tamanho da lista completa
+        expect(listaCheia.length).toBe(tarefas.length);
+
+        // Checa se lista filtrada possue mesmas tarefas da lista completa
+        expect(listaCheia).toEqual(tarefas);
+    });
+
+    it('B) Filtro "pending" retorna tarefas pendentes', () => {
+        const listaPendente = filtrarTarefas(tarefas, 'pending');
+        
+        // Checa se lista possui tamanho de acordo de tarefas pendentes (2, neste exemplo)
+        expect(listaPendente.length).toBe(2);
+
+        // Checa se todos as tarefas nesta lista são classificados como pendente aparecem
+        expect(listaPendente.every(t => t.status === 'pending')).toBe(true);
+    });
+
+    it('C) Filtro "completed" retorna tarefas concluídas', () => {
+        const listaCompletada = filtrarTarefas(tarefas, 'completed');
+
+        // Checa se lista possui tamanho de acordo de tarefas completas (1, neste exemplo)
+        expect(listaCompletada.length).toBe(1);
+
+        // Checa se todos as tarefas nesta lista são classificados como concluída aparecem
+        expect(listaCompletada.every(t => t.status === 'completed')).toBe(true);
+    });
+
+    it('D) Filtro desconhecido retorna todas as tarefas (default)', () => {
+        const listaDesconhecida = filtrarTarefas(tarefas, 'ibhdaw');
+
+        // Mesma checagens de lista cheia (all)
+        expect(listaDesconhecida.length).toBe(tarefas.length);
+        expect(listaDesconhecida).toEqual(tarefas);
+    });
+
+    it('E) Lista vazia retorna array vazio', () => {
+        const listaVazia = filtrarTarefas([], 'pending');
+
+        // Checa se array retornado está vazio sem itens
+        expect(listaVazia).toEqual([]);
+        expect(listaVazia.length).toBe(0);
+    });
+
+    it('F) Retorna um novo array (imutabilidade)', () => {
+        const check = filtrarTarefas(tarefas, 'all');
+        expect(check).not.toBe(tarefas);
+    });
+})
