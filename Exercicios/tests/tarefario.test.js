@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { removerTarefa } from '../src/tarefario.js';
 
 describe("Exercício 1: Remoção", () => {
     const tarefas = [
@@ -49,6 +50,6 @@ describe("Exercício 1: Remoção", () => {
     it('E) Retorna array vazio quando lista é vazia', () => {
         const checkVazio = removerTarefa([], 1);
         expect(checkVazio).toEqual([]);
-        expect(checkVazio.len).toBe(0);
+        expect(checkVazio.length).toBe(0);
     });
 })
