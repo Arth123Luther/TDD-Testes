@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { removerTarefa, filtrarTarefas } from '../src/tarefario.js';
+import { removerTarefa, filtrarTarefas, contarTarefas, contarConcluidas, contarPendentes } from '../src/tarefario.js';
 
 describe("Exercício 1: Remoção", () => {
     const tarefas = [
@@ -110,5 +110,54 @@ describe("Exercício 2: Filtro", () => {
     it('F) Retorna um novo array (imutabilidade)', () => {
         const check = filtrarTarefas(tarefas, 'all');
         expect(check).not.toBe(tarefas);
+    });
+})
+
+describe("Exercício 3: Contagem", () => {
+    const tarefas = [
+        { id: 1, title: 'Estudar TDD', completed: true },
+        { id: 2, title: 'Commitar Códigos', completed: false },
+        { id: 3, title: 'Entregar Projeto', completed: false },
+    ];
+
+    it('A) Lista vazia retorna 0 para todas', () => {
+        expect(contarTarefas([])).toBe(0);
+        expect(contarConcluidas([])).toBe(0);
+        expect(contarPendentes([])).toBe(0);
+    });
+
+    it('B) Usar contarTarefas retorna o total de tarefas', () => {
+        expect(contarTarefas(tarefas)).toBe(tarefas.length);
+    });
+    
+    it('C) Usar contarConcluidas retorna apenas tarefas completadas', () => {
+        const totalEsperado = tarefas.filter(t => t.completed === true).length;
+
+        // Neste exemplo, o resultado deve ser 1
+        expect(contarConcluidas(tarefas)).toBe(totalEsperado);
+    });
+    
+    it('D) Usar contarPendentes retorna apenas tarefas pendentes', () => {
+        const totalEsperado = tarefas.filter(t => t.completed === false).length;
+
+        // Neste exemplo, o resultado deve ser 2
+        expect(contarPendentes(tarefas)).toBe(totalEsperado);
+    });
+    
+    it('E) Quando não houver tarefas do tipo, Retorna 0', () => {
+        const todasCompletas = [
+            { id: 1, title: 'Tarefa 1', completed: false },
+            { id: 2, title: 'Tarefa 2', completed: false },
+        ];
+        const todasPendentes = [
+            { id: 1, title: 'Tarefa 1', completed: true },
+            { id: 2, title: 'Tarefa 2', completed: true },
+        ];
+
+        // Se contarPendentes fosse usado em uma lista de tarefas concluídas
+        expect(contarPendentes(todasCompletas)).toBe(0);
+
+        // Se contarConcluidas fosse usado em uma lista de tarefas pendentes
+        expect(contarConcluidas(todasPendentes)).toBe(0);
     });
 })
