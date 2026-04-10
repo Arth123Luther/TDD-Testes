@@ -161,3 +161,42 @@ describe("Exercício 3: Contagem", () => {
         expect(contarConcluidas(todasPendentes)).toBe(0);
     });
 })
+
+describe("Exercício 4: Prioridade", () => {
+    const tarefas = [
+        { id: 1, title: 'Estudar TDD', priority: 'high' },
+        { id: 2, title: 'Commitar Códigos', priority: 'medium' },
+        { id: 3, title: 'Entregar Projeto', priority: 'low' },
+        { id: 4, title: 'Revisar PR', priority: 'high' },
+    ];
+
+    it("A) criarTarefa('Tarefa', 'high') deve retornar tarefa de prioridade alta", () => {
+        const tarefa = criarTarefa('Tarefa', 'high');
+        expect(tarefa.priority).toBe('high');
+    });
+
+    it("B) criarTarefa('Tarefa') deve retornar tarefa de prioridade média (padrão)", () => {
+        const tarefa = criarTarefa('Tarefa');
+        expect(tarefa.priority).toBe('medium');
+    });
+
+    it("C) validarPrioridade deve aceitar parâmetro corretos (true)", () => {
+        expect(validarPrioridade('high')).toBe(true);
+        expect(validarPrioridade('medium')).toBe(true);
+        expect(validarPrioridade('low')).toBe(true);
+    });
+
+    it("D) validarPrioridade deve rejeitar valores não existentes (false)", () => {
+        expect(validarPrioridade('urgente')).toBe(false);
+        expect(validarPrioridade('')).toBe(false);
+        expect(validarPrioridade(null)).toBe(false);
+    });
+    
+    it("E) filtrarPrioridade(tarefas, 'high') deve retornar apenas tarefas de alta prioridade", () => {
+        const resultado = filtrarPrioridade(tarefas, 'high');
+        const totalEsperado = tarefas.filter(t => t.priority === 'high').length;
+
+        expect(resultado.length).toBe(totalEsperado);
+        expect(resultado.every(t => t.priority === 'high')).toBe(true);
+    });
+})
