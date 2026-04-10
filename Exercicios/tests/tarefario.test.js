@@ -145,11 +145,11 @@ describe("Exercício 3: Contagem", () => {
     });
     
     it('E) Quando não houver tarefas do tipo, Retorna 0', () => {
-        const todasCompletas = [
+        const todasPendentes = [
             { id: 1, title: 'Tarefa 1', completed: false },
             { id: 2, title: 'Tarefa 2', completed: false },
         ];
-        const todasPendentes = [
+        const todasCompletas = [
             { id: 1, title: 'Tarefa 1', completed: true },
             { id: 2, title: 'Tarefa 2', completed: true },
         ];

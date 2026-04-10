@@ -12,3 +12,15 @@ export function filtrarTarefas(tarefas, filtro) {
             return [...tarefas];
     }
 }
+
+export function contarTarefas(tarefas) {
+    return tarefas.length;
+}
+
+export function contarConcluidas(tarefas) {
+    return tarefas.filter(t => t.completed === true).length;
+}
+
+export function contarPendentes(tarefas) {
+    return tarefas.filter(t => t.completed === false).length;
+}
