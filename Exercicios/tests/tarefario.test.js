@@ -1,5 +1,14 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { removerTarefa, filtrarTarefas, contarTarefas, contarConcluidas, contarPendentes } from '../src/tarefario.js';
+import { 
+    removerTarefa, 
+    filtrarTarefas, 
+    contarTarefas, 
+    contarConcluidas, 
+    contarPendentes,
+    criarTarefa,
+    validarPrioridade,
+    filtrarPrioridade
+ } from '../src/tarefario.js';
 
 describe("Exercício 1: Remoção", () => {
     const tarefas = [

@@ -24,3 +24,15 @@ export function contarConcluidas(tarefas) {
 export function contarPendentes(tarefas) {
     return tarefas.filter(t => t.completed === false).length;
 }
+
+export function criarTarefa(titulo, priority = 'medium', status = 'pending') {
+    return { titulo, priority, status };
+}
+
+export function validarPrioridade(priority) {
+    return ['high', 'medium', 'low'].includes(priority);
+}
+
+export function filtrarPrioridade(tarefas, priority) {
+    return tarefas.filter(t => t.priority === priority);
+}
