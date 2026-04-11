@@ -10,7 +10,8 @@ import {
     filtrarPrioridade,
     tarefaDuplicada,
     adicionarTarefa,
-    ordenarTarefas
+    ordenarTarefas,
+    buscarTarefas
  } from '../src/tarefario.js';
 
 describe("Exercício 1: Remoção", () => {
@@ -293,5 +294,50 @@ describe('Exercício 6: Ordenança', () => {
     it('E) Deve retornar novo array (imutabilidade)', () => {
         const resultado = ordenarTarefas(tarefas);
         expect(resultado).not.toBe(tarefas);
+    });
+})
+
+describe('Exercício 7: Busca por texto', () => {
+    const tarefas = [
+        { id: 1, titulo: 'Estudar' },
+        { id: 2, titulo: 'Testar' },
+        { id: 3, titulo: 'Commitar' },
+        { id: 4, titulo: 'Entregar' },
+    ];
+
+    it("A) buscarTarefas(tarefas, 'est') deve encontrar 'Estudar' e 'Testar'", () => {
+        const resultado = buscarTarefas(tarefas, 'est');
+
+        // Resultado baseado em nossa lista
+        expect(resultado.length).toBe(2);
+        expect(resultado.some(t => t.titulo === 'Estudar')).toBe(true);
+        expect(resultado.some(t => t.titulo === 'Testar')).toBe(true);
+
+        // Todos os resultados incluem 'est'
+        expect(resultado.every(t => t.titulo.toLowerCase().includes('est'))).toBe(true);
+    });
+
+    it("B) buscarTarefas(tarefas, 'EST') deve funcionar (case-insensitive)", () => {
+    const resultado = buscarTarefas(tarefas, 'EST');
+
+        // Deve encontrar as mesmas tarefas que 'est'
+        expect(resultado.length).toBe(2);
+        expect(resultado.some(t => t.titulo === 'Estudar')).toBe(true);
+        expect(resultado.some(t => t.titulo === 'Testar')).toBe(true);
+
+        // Todos os resultados incluem 'est'
+        expect(resultado.every(t => t.titulo.toLowerCase().includes('est'))).toBe(true);
+    });
+
+    it("C) buscarTarefas(tarefas, 'xyz') retorna array vazio", () => {
+        expect(buscarTarefas(tarefas, 'xyz')).toEqual([]);
+    });
+
+    it("D) buscarTarefas([], 'est') retorna array vazio", () => {
+        expect(buscarTarefas([], 'est')).toEqual([]);
+    });
+
+    it("E) buscarTarefas(tarefas, '') retorna array vazio", () => {
+        expect(buscarTarefas(tarefas, '')).toEqual(tarefas);
     });
 })
