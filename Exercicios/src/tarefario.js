@@ -47,3 +47,9 @@ export function adicionarTarefa(tarefas, titulo) {
     }
     return [...tarefas, criarTarefa(titulo)];
 }
+
+export function ordenarTarefas(tarefas) {
+    const pendentes = tarefas.filter(t => t.completed === false);
+    const concluidas = tarefas.filter(t => t.completed === true);
+    return [...pendentes, ...concluidas];
+}
