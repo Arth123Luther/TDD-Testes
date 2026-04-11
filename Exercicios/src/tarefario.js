@@ -36,3 +36,14 @@ export function validarPrioridade(priority) {
 export function filtrarPrioridade(tarefas, priority) {
     return tarefas.filter(t => t.priority === priority);
 }
+
+export function tarefaDuplicada(tarefas, titulo) {
+    return tarefas.some(t => t.titulo.trim().toLowerCase() === titulo.trim().toLowerCase());
+}
+
+export function adicionarTarefa(tarefas, titulo) {
+    if (tarefaDuplicada(tarefas, titulo)) {
+        throw new Error('Tarefa com este nome já existe');
+    }
+    return [...tarefas, criarTarefa(titulo)];
+}
