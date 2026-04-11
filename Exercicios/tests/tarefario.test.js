@@ -7,7 +7,9 @@ import {
     contarPendentes,
     criarTarefa,
     validarPrioridade,
-    filtrarPrioridade
+    filtrarPrioridade,
+    tarefaDuplicada,
+    adicionarTarefa
  } from '../src/tarefario.js';
 
 describe("Exercício 1: Remoção", () => {
@@ -207,5 +209,31 @@ describe("Exercício 4: Prioridade", () => {
 
         expect(resultado.length).toBe(totalEsperado);
         expect(resultado.every(t => t.priority === 'high')).toBe(true);
+    });
+})
+
+describe("Exercício 5: Duplicadas", () => {
+    const tarefas = [
+        { id: 1, titulo: 'Estudar' },
+        { id: 2, titulo: 'Leitura' },
+    ];
+
+    it("A) Deve retornar true com tarefaDuplicada em títulos iguais", () => {
+        expect(tarefaDuplicada(tarefas, 'Estudar')).toBe(true);
+        expect(tarefaDuplicada(tarefas, 'Leitura')).toBe(true);
+    });
+
+    it("B) Deve retornar true com tarefaDuplicada em títulos iguais (case-insensitive)", () => {
+        expect(tarefaDuplicada(tarefas, 'estudar')).toBe(true);
+        expect(tarefaDuplicada(tarefas, 'leitura')).toBe(true);
+    });
+
+    it("C) Deve retornar false com tarefaDuplicada em títulos diferentes", () => {
+        expect(tarefaDuplicada(tarefas, 'Trabalhar')).toBe(false);
+        expect(tarefaDuplicada(tarefas, 'Cozinhar')).toBe(false);
+    });
+
+    it("D) Deve lançar mensagem de erro ao criar tarefa com título que já existe", () => {
+        expect(() => adicionarTarefa(tarefas, 'Estudar')).toThrow('Um tarefa já possui este nome');
     });
 })
