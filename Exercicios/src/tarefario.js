@@ -53,3 +53,7 @@ export function ordenarTarefas(tarefas) {
     const concluidas = tarefas.filter(t => t.completed === true);
     return [...pendentes, ...concluidas];
 }
+
+export function buscarTarefas(tarefas, query) {
+    return tarefas.filter(t => t.titulo.toLowerCase().includes(query.toLowerCase()));
+}
