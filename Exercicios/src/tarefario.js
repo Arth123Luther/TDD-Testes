@@ -1,3 +1,9 @@
+let _nextId = 1;
+
+export function resetId() {
+    _nextId = 1;
+}
+
 export function removerTarefa(tarefas, id) {
     return tarefas.filter(t => t.id !== id);
 }
@@ -26,7 +32,7 @@ export function contarPendentes(tarefas) {
 }
 
 export function criarTarefa(titulo, priority = 'medium', status = 'pending') {
-    return { titulo, priority, status };
+    return { id: _nextId++, titulo, priority, status };
 }
 
 export function validarPrioridade(priority) {
