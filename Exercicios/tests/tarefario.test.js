@@ -9,7 +9,8 @@ import {
     validarPrioridade,
     filtrarPrioridade,
     tarefaDuplicada,
-    adicionarTarefa
+    adicionarTarefa,
+    ordenarTarefas
  } from '../src/tarefario.js';
 
 describe("Exercício 1: Remoção", () => {
@@ -235,5 +236,62 @@ describe("Exercício 5: Duplicadas", () => {
 
     it("D) Deve lançar mensagem de erro ao criar tarefa com título que já existe", () => {
         expect(() => adicionarTarefa(tarefas, 'Estudar')).toThrow('Tarefa com este nome já existe');
+    });
+})
+
+describe('Exercício 6: Ordenança', () => {
+    const tarefas = [
+        { id: 1, titulo: 'Estudar', completed: true },
+        { id: 2, titulo: 'Commitar', completed: false },
+        { id: 3, titulo: 'Entregar', completed: true },
+        { id: 4, titulo: 'Revisar', completed: false },
+    ];
+
+    const apenasPendentes = [
+        { id: 1, titulo: 'Commitar', completed: false },
+        { id: 2, titulo: 'Revisar', completed: false },
+    ];
+
+    const apenasConcluidas = [
+        { id: 1, titulo: 'Estudar', completed: true },
+        { id: 2, titulo: 'Entregar', completed: true },
+    ]
+
+    it('A) Lista mista deve retornar pendentes antes de concluídas', () => {
+    const resultado = ordenarTarefas(tarefas);
+
+    // Aqui procuramos as posições das tarefas concluidas e pendentes
+    const primeiraConcluida = resultado.findIndex(t => t.completed === true);
+    const ultimaPendente = resultado.findLastIndex(t => t.completed === false);
+
+    /*  Ao usar ordenarTarefas, os indices menores pertencem ás pendentes, 
+    e os indices maiores ás concluidas. Assim, pendentes aparecem primeiro.
+    Indice 0 = Primeira tarefa = pendente
+    Indice 2 = Terceira tarefa = concluida */
+
+    // Ordem da nossa lista, por exemplo [Commitar, Revisar, Estudar, Entregar]
+    expect(resultado.map(t => t.completed)).toEqual([false, false, true, true])
+
+    // Para qualquer lista ordenada
+    expect(ultimaPendente).toBeLessThan(primeiraConcluida);
+    });
+
+    it('B) Lista de apenas pendentes deve manter a ordem', () => {
+        const resultado = ordenarTarefas(apenasPendentes);
+        expect(resultado).toEqual(apenasPendentes);
+    });
+
+    it('C) Lista de apenas concluídas deve manter a ordem', () => {
+        const resultado = ordenarTarefas(apenasConcluidas);
+        expect(resultado).toEqual(apenasConcluidas);
+    });
+
+    it('D) Lista vazia deve retornar array vazio', () => {
+        expect(ordenarTarefas([])).toEqual([]);
+    });
+    
+    it('E) Deve retornar novo array (imutabilidade)', () => {
+        const resultado = ordenarTarefas(tarefas);
+        expect(resultado).not.toBe(tarefas);
     });
 })
