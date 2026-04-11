@@ -234,6 +234,6 @@ describe("Exercício 5: Duplicadas", () => {
     });
 
     it("D) Deve lançar mensagem de erro ao criar tarefa com título que já existe", () => {
-        expect(() => adicionarTarefa(tarefas, 'Estudar')).toThrow('Um tarefa já possui este nome');
+        expect(() => adicionarTarefa(tarefas, 'Estudar')).toThrow('Tarefa com este nome já existe');
     });
 })
